@@ -1,13 +1,14 @@
+import { memo, useState } from "react";
 import Picker from "react-mobile-picker";
-import { useState } from "react";
+
 const Input = ({ selectionCallback }) => {
-  const difficulties = {
+  const selections = {
     difficulty: ["Easy", "Medium", "Hard", "Expert"],
   };
   const [pickerValue, setPickerValue] = useState({ difficulty: "Easy" });
   return (
     <div className="w-full h-fit gap-y-[20px] flex flex-col justify-center items-center text-[20px] font-selection text-selection">
-      <p>Difficulty: </p>
+      <p> Difficulty: </p>
       <Picker
         className="h-fit"
         value={pickerValue}
@@ -15,13 +16,20 @@ const Input = ({ selectionCallback }) => {
         wheelMode="natural"
       >
         <Picker.Column name="difficulty">
-          {selections.difficulty.map((option) => {
+          {selections.difficulty.map((option) => (
             <Picker.Item key={option} value={option}>
               {option}
-            </Picker.Item>;
-          })}
+            </Picker.Item>
+          ))}
         </Picker.Column>
       </Picker>
+      <button
+        className="w-[30%] h-fit py-[4px] bg-button rounded-3xl"
+        onClick={() => selectionCallback(pickerValue.difficulty)}
+      >
+        Play!!
+      </button>
     </div>
   );
 };
+export default memo(Input);
